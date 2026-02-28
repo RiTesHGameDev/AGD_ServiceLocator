@@ -7,34 +7,20 @@ using ServiceLocator.Sound;
 
 namespace ServiceLocator.Player
 {
-    public class PlayerService : MonoBehaviour
+    public class PlayerService : GenericMonoSingleton<PlayerService>
     {
-        [SerializeField] private SoundService soundService;
 
         [SerializeField] public PlayerScriptableObject playerScriptableObject;
 
-        private static PlayerService instance;
         private ProjectilePool projectilePool;
 
         private List<MonkeyController> activeMonkeys;
         private MonkeyView selectedMonkeyView;
         private int health;
 
-        public static PlayerService Instance { get { return instance; } }
         public int Money { get; private set; }
 
-        private void Awake()
-        {
-            if(instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                Destroy(this.gameObject);
-                Debug.Log("Singleton of PlayerService is trying to create second Instance ");
-            }
-        }
+
 
         private void Start()
         {
@@ -106,7 +92,7 @@ namespace ServiceLocator.Player
             if (MapService.Instance.TryGetMonkeySpawnPosition(dropPosition, out Vector3 spawnPosition))
             {
                 SpawnMonkey(monkeyType, spawnPosition);
-                soundService.PlaySoundEffects(SoundType.SpawnMonkey);
+                SoundService.Instance.PlaySoundEffects(SoundType.SpawnMonkey);
             }
         }
 
