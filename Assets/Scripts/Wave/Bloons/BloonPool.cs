@@ -23,7 +23,7 @@ namespace ServiceLocator.Wave.Bloon
         {
             this.bloonPrefab = waveScriptableObject.BloonPrefab;
             this.bloonScriptableObjects = waveScriptableObject.BloonScriptableObjects;
-            this.bloonContainer = new GameObject("Bloon Container").transform;
+            bloonContainer = new GameObject("Bloon Container").transform;
         }
 
         public BloonController GetBloon(BloonType bloonType)
