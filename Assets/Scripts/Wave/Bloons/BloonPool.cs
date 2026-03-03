@@ -19,13 +19,21 @@ namespace ServiceLocator.Wave.Bloon
         private List<BloonScriptableObject> bloonScriptableObjects;
         private Transform bloonContainer;
 
-        public BloonPool(WaveScriptableObject waveScriptableObject)
+        private PlayerService playerService;
+        private WaveService waveService;
+        private SoundService soundService;
+
+        public BloonPool(WaveScriptableObject waveScriptableObject,PlayerService playerService, 
+            WaveService waveService, SoundService soundService)
         {
+            this.playerService = playerService;
+            this.waveService = waveService;
+            this.soundService = soundService;
+
             this.bloonPrefab = waveScriptableObject.BloonPrefab;
             this.bloonScriptableObjects = waveScriptableObject.BloonScriptableObjects;
             bloonContainer = new GameObject("Bloon Container").transform;
         }
-
         public BloonController GetBloon(BloonType bloonType)
         {
             BloonController bloon = GetItem();
@@ -36,7 +44,7 @@ namespace ServiceLocator.Wave.Bloon
 
         protected override BloonController CreateItem()
         {
-            return new BloonController(bloonPrefab, bloonContainer);
+            return new BloonController(bloonPrefab, bloonContainer,playerService,waveService,soundService);
         }
     }
 }

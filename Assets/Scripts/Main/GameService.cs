@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameService : GenericMonoSingleton<GameService>
+public class GameService : MonoBehaviour
 {
     public PlayerService playerService { get; private set; }
     public SoundService soundService { get; private set; }
@@ -40,12 +40,15 @@ public class GameService : GenericMonoSingleton<GameService>
         eventService = new EventService();
         waveService = new WaveService(waveScriptableObject);
         mapService = new MapService(mapScriptableObject);
-        UIService.SubscribeToEvents();
+        
     }
 
     private void InjectDependency()
     {
         playerService.Init(uiService,mapService,soundService);
+        waveService.Init(eventService,uiService,mapService,soundService,playerService);
+        mapService.Init(eventService);
+        uiService.Init(playerService,eventService, waveService);
     }
     private void Update()
     {

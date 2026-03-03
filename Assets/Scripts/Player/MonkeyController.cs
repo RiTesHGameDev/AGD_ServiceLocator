@@ -14,9 +14,11 @@ namespace ServiceLocator.Player
         private ProjectilePool projectilePool;
         private List<BloonController> bloonsInRange;
         private float attackTimer;
+        private SoundService soundService;
 
-        public MonkeyController(MonkeyScriptableObject monkeyScriptableObject, ProjectilePool projectilePool)
+        public MonkeyController(MonkeyScriptableObject monkeyScriptableObject, ProjectilePool projectilePool, SoundService soundService)
         {
+            this.soundService = soundService;
             monkeyView = Object.Instantiate(monkeyScriptableObject.Prefab);
             monkeyView.SetController(this);
             monkeyView.SetTriggerRadius(monkeyScriptableObject.Range);
@@ -51,7 +53,7 @@ namespace ServiceLocator.Player
                 ProjectileController projectile = projectilePool.GetProjectile(monkeyScriptableObject.projectileType);
                 projectile.SetPosition(monkeyView.transform.position);
                 projectile.SetTarget(targetBloon);
-                GameService.Instance.soundService.PlaySoundEffects(Sound.SoundType.MonkeyShoot);
+                soundService.PlaySoundEffects(Sound.SoundType.MonkeyShoot);
                 ResetAttackTimer();
             }
         }

@@ -15,7 +15,10 @@ namespace ServiceLocator.Wave.Bloon
             animator = GetComponent<Animator>();
         }
 
-        private void Update() => Controller.FollowWayPoints();
+        private void Update()
+        {
+            Controller.FollowWayPoints();
+        }
 
         public void SetRenderer(Sprite spriteToSet) => spriteRenderer.sprite = spriteToSet;
 
