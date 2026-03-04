@@ -10,11 +10,11 @@ using UnityEngine;
 
 public class GameService : MonoBehaviour
 {
-    public PlayerService playerService { get; private set; }
-    public SoundService soundService { get; private set; }
-    public EventService eventService { get; private set; }
-    public WaveService waveService { get; private set; }
-    public MapService mapService { get; private set; }
+    private PlayerService playerService;
+    private SoundService soundService;
+    private EventService eventService;
+    private WaveService waveService;
+    private MapService mapService;
 
     [SerializeField] private UIService uiService;
     public UIService UIService => uiService;
